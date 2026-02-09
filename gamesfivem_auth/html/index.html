@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamesFiveM - Autenticación</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="auth-container" class="hidden">
+        <!-- Video Background -->
+        <div class="video-background">
+            <div class="video-overlay"></div>
+        </div>
+
+        <!-- Particles Background -->
+        <div class="particles"></div>
+
+        <!-- Main Content -->
+        <div class="auth-wrapper">
+            <!-- Left Panel - Info -->
+            <div class="info-panel">
+                <div class="logo-container">
+                    <img src="logo.png" alt="GamesFiveM Logo" class="logo">
+                    <h1 class="server-name">GAMES<span>FIVEM</span></h1>
+                </div>
+
+                <div class="info-content">
+                    <h2 class="welcome-title">¡Bienvenido a GamesFiveM!</h2>
+                    <p class="server-description">
+                        El mejor servidor de <strong>minijuegos</strong> en FiveM
+                    </p>
+
+                    <div class="features">
+                        <div class="feature-item">
+                            <div class="feature-icon">🎮</div>
+                            <div class="feature-text">
+                                <h3>Múltiples Minijuegos</h3>
+                                <p>Sumo, Face to Face, Mega Rampas y más</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">🏎️</div>
+                            <div class="feature-text">
+                                <h3>Carreras Épicas</h3>
+                                <p>Carreras callejeras con los mejores vehículos</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">🛍️</div>
+                            <div class="feature-text">
+                                <h3>Tiendas Estéticas</h3>
+                                <p>Personaliza tu experiencia sin pay-to-win</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">⚡</div>
+                            <div class="feature-text">
+                                <h3>Acción Constante</h3>
+                                <p>Diversión garantizada en cada partida</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="server-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">1000+</span>
+                            <span class="stat-label">Jugadores</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Minijuegos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Online</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Auth Forms -->
+            <div class="auth-panel">
+                <div class="auth-forms">
+                    <!-- Login Form -->
+                    <div id="login-form" class="form-container active">
+                        <div class="form-header">
+                            <h2>Iniciar Sesión</h2>
+                            <p>Ingresa a tu cuenta de GamesFiveM</p>
+                        </div>
+
+                        <form id="loginForm">
+                            <div class="input-group">
+                                <label for="login-email">Correo Electrónico</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">📧</span>
+                                    <input type="email" id="login-email" name="email" placeholder="tu@correo.com" required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="login-password">Contraseña</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">🔒</span>
+                                    <input type="password" id="login-password" name="password" placeholder="••••••••" required>
+                                    <span class="toggle-password" onclick="togglePassword('login-password')">👁️</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <span class="btn-text">Iniciar Sesión</span>
+                                <span class="btn-loader hidden"></span>
+                            </button>
+
+                            <div class="form-footer">
+                                <p>¿No tienes cuenta? <a href="#" class="link" onclick="switchForm('register')">Regístrate aquí</a></p>
+                            </div>
+                        </form>
+
+                        <div id="login-message" class="message hidden"></div>
+                    </div>
+
+                    <!-- Register Form -->
+                    <div id="register-form" class="form-container">
+                        <div class="form-header">
+                            <h2>Crear Cuenta</h2>
+                            <p>Únete a la comunidad de GamesFiveM</p>
+                        </div>
+
+                        <form id="registerForm">
+                            <div class="input-group">
+                                <label for="register-email">Correo Electrónico</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">📧</span>
+                                    <input type="email" id="register-email" name="email" placeholder="tu@correo.com" required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="register-username">Nombre de Usuario</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">👤</span>
+                                    <input type="text" id="register-username" name="username" placeholder="Tu nombre de usuario" required minlength="3" maxlength="20">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="register-password">Contraseña</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">🔒</span>
+                                    <input type="password" id="register-password" name="password" placeholder="••••••••" required minlength="6">
+                                    <span class="toggle-password" onclick="togglePassword('register-password')">👁️</span>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="register-confirm-password">Confirmar Contraseña</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">🔒</span>
+                                    <input type="password" id="register-confirm-password" placeholder="••••••••" required minlength="6">
+                                    <span class="toggle-password" onclick="togglePassword('register-confirm-password')">👁️</span>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="register-nationality">Nacionalidad</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">🌍</span>
+                                    <select id="register-nationality" name="nationality" required>
+                                        <option value="">Selecciona tu país</option>
+                                        <option value="AR">🇦🇷 Argentina</option>
+                                        <option value="BO">🇧🇴 Bolivia</option>
+                                        <option value="BR">🇧🇷 Brasil</option>
+                                        <option value="CL">🇨🇱 Chile</option>
+                                        <option value="CO">🇨🇴 Colombia</option>
+                                        <option value="CR">🇨🇷 Costa Rica</option>
+                                        <option value="CU">🇨🇺 Cuba</option>
+                                        <option value="EC">🇪🇨 Ecuador</option>
+                                        <option value="SV">🇸🇻 El Salvador</option>
+                                        <option value="ES">🇪🇸 España</option>
+                                        <option value="GT">🇬🇹 Guatemala</option>
+                                        <option value="HN">🇭🇳 Honduras</option>
+                                        <option value="MX">🇲🇽 México</option>
+                                        <option value="NI">🇳🇮 Nicaragua</option>
+                                        <option value="PA">🇵🇦 Panamá</option>
+                                        <option value="PY">🇵🇾 Paraguay</option>
+                                        <option value="PE">🇵🇪 Perú</option>
+                                        <option value="DO">🇩🇴 República Dominicana</option>
+                                        <option value="UY">🇺🇾 Uruguay</option>
+                                        <option value="VE">🇻🇪 Venezuela</option>
+                                        <option value="US">🇺🇸 Estados Unidos</option>
+                                        <option value="OTHER">🌎 Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <span class="btn-text">Crear Cuenta</span>
+                                <span class="btn-loader hidden"></span>
+                            </button>
+
+                            <div class="form-footer">
+                                <p>¿Ya tienes cuenta? <a href="#" class="link" onclick="switchForm('login')">Inicia sesión</a></p>
+                            </div>
+                        </form>
+
+                        <div id="register-message" class="message hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

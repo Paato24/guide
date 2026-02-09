@@ -1,0 +1,24 @@
+=====================================================
+    INSTRUCCIONES PARA EL LOGO DEL SERVIDOR
+=====================================================
+
+El logo del servidor debe colocarse en la siguiente ubicación:
+    gamesfivem_auth/html/logo.png
+
+ESPECIFICACIONES RECOMENDADAS:
+- Formato: PNG con transparencia
+- Tamaño: 512x512 píxeles (o similar cuadrado)
+- Peso: Menos de 500KB para carga rápida
+- Fondo: Transparente preferiblemente
+
+El sistema está configurado para mostrar el logo proporcionado en la 
+imagen del brief del proyecto (el logo de GamesFiveM con el diseño 
+de acción/GTA).
+
+PASOS PARA AGREGAR EL LOGO:
+1. Guarda el logo como 'logo.png'
+2. Colócalo en: gamesfivem_auth/html/logo.png
+3. Reinicia el recurso: /restart gamesfivem_auth
+
+Si no tienes logo aún, puedes usar un logo temporal mientras
+preparas el definitivo.
