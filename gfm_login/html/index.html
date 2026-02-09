@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamesFiveM - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div id="app" class="hidden">
+        <!-- Animated Background -->
+        <div class="bg-overlay"></div>
+        <div class="particles" id="particles"></div>
+
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Left Panel - Info -->
+            <div class="info-panel">
+                <div class="logo-container">
+                    <img src="img/logo.png" alt="GamesFiveM" class="logo" id="serverLogo" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';">
+                    <div id="logoFallback" class="logo-fallback" style="display:none;">
+                        <span class="logo-text-g">G</span><span class="logo-text-fm">FM</span>
+                    </div>
+                    <div class="logo-glow"></div>
+                </div>
+                
+                <div class="server-info">
+                    <h1 class="server-title">GAMES<span class="highlight">FIVE</span>M</h1>
+                    <p class="server-subtitle">EL SERVIDOR #1 DE MINIJUEGOS EN FIVEM</p>
+                    
+                    <div class="divider">
+                        <span class="divider-line"></span>
+                        <i class="fas fa-gamepad divider-icon"></i>
+                        <span class="divider-line"></span>
+                    </div>
+
+                    <p class="server-description">
+                        Bienvenido al mejor servidor de minijuegos de FiveM. 
+                        Diversión pura sin límites con tus amigos.
+                    </p>
+
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-car-crash"></i>
+                            </div>
+                            <span>Sumo</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-crosshairs"></i>
+                            </div>
+                            <span>Face to Face</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-flag-checkered"></i>
+                            </div>
+                            <span>Carreras Callejeras</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-mountain"></i>
+                            </div>
+                            <span>Mega Rampas</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <span>Carreras</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <span>¡Y Más!</span>
+                        </div>
+                    </div>
+
+                    <div class="no-p2w">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>100% Free to Play — Sin Pay to Win</span>
+                    </div>
+                    
+                    <div class="shop-info">
+                        <i class="fas fa-store"></i>
+                        <span>Tiendas con mejoras estéticas únicamente</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Auth -->
+            <div class="auth-panel">
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form active">
+                    <div class="form-header">
+                        <h2><i class="fas fa-right-to-bracket"></i> Iniciar Sesión</h2>
+                        <p>Ingresa a tu cuenta de GamesFiveM</p>
+                    </div>
+
+                    <div class="form-body">
+                        <div class="input-group">
+                            <div class="input-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <input type="email" id="loginEmail" placeholder="Correo electrónico" autocomplete="off">
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <input type="password" id="loginPassword" placeholder="Contraseña">
+                            <div class="toggle-password" onclick="togglePassword('loginPassword', this)">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary" id="btnLogin" onclick="handleLogin()">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>INICIAR SESIÓN</span>
+                        </button>
+
+                        <div class="form-footer">
+                            <p>¿No tienes cuenta? <a href="#" onclick="showForm('register')">Regístrate aquí</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerForm" class="auth-form">
+                    <div class="form-header">
+                        <h2><i class="fas fa-user-plus"></i> Crear Cuenta</h2>
+                        <p>Únete a la comunidad GamesFiveM</p>
+                    </div>
+
+                    <div class="form-body">
+                        <div class="input-group">
+                            <div class="input-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <input type="email" id="regEmail" placeholder="Correo electrónico" autocomplete="off">
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <input type="text" id="regUsername" placeholder="Nombre de usuario" autocomplete="off">
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <input type="password" id="regPassword" placeholder="Contraseña (mín. 6 caracteres)">
+                            <div class="toggle-password" onclick="togglePassword('regPassword', this)">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <input type="password" id="regPasswordConfirm" placeholder="Confirmar contraseña">
+                            <div class="toggle-password" onclick="togglePassword('regPasswordConfirm', this)">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <select id="regNationality">
+                                <option value="" disabled selected>Selecciona tu nacionalidad</option>
+                                <option value="Argentina">🇦🇷 Argentina</option>
+                                <option value="Bolivia">🇧🇴 Bolivia</option>
+                                <option value="Brasil">🇧🇷 Brasil</option>
+                                <option value="Chile">🇨🇱 Chile</option>
+                                <option value="Colombia">🇨🇴 Colombia</option>
+                                <option value="Costa Rica">🇨🇷 Costa Rica</option>
+                                <option value="Cuba">🇨🇺 Cuba</option>
+                                <option value="Ecuador">🇪🇨 Ecuador</option>
+                                <option value="El Salvador">🇸🇻 El Salvador</option>
+                                <option value="España">🇪🇸 España</option>
+                                <option value="Estados Unidos">🇺🇸 Estados Unidos</option>
+                                <option value="Guatemala">🇬🇹 Guatemala</option>
+                                <option value="Honduras">🇭🇳 Honduras</option>
+                                <option value="México">🇲🇽 México</option>
+                                <option value="Nicaragua">🇳🇮 Nicaragua</option>
+                                <option value="Panamá">🇵🇦 Panamá</option>
+                                <option value="Paraguay">🇵🇾 Paraguay</option>
+                                <option value="Perú">🇵🇪 Perú</option>
+                                <option value="Puerto Rico">🇵🇷 Puerto Rico</option>
+                                <option value="República Dominicana">🇩🇴 República Dominicana</option>
+                                <option value="Uruguay">🇺🇾 Uruguay</option>
+                                <option value="Venezuela">🇻🇪 Venezuela</option>
+                                <option value="Otro">🌍 Otro</option>
+                            </select>
+                        </div>
+
+                        <button class="btn-primary" id="btnRegister" onclick="handleRegister()">
+                            <i class="fas fa-user-plus"></i>
+                            <span>CREAR CUENTA</span>
+                        </button>
+
+                        <div class="form-footer">
+                            <p>¿Ya tienes cuenta? <a href="#" onclick="showForm('login')">Inicia sesión</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success / Play Screen -->
+                <div id="playScreen" class="auth-form">
+                    <div class="play-content">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2 id="welcomeText">¡Bienvenido!</h2>
+                        <p id="welcomeSubtext" class="welcome-sub">Tu cuenta está lista</p>
+                        
+                        <div class="play-divider"></div>
+                        
+                        <button class="btn-play" id="btnPlay" onclick="handlePlay()">
+                            <div class="btn-play-inner">
+                                <i class="fas fa-play"></i>
+                                <span>JUGAR</span>
+                            </div>
+                            <div class="btn-play-glow"></div>
+                        </button>
+                        
+                        <p class="play-hint">Presiona para entrar al servidor</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="notification" class="notification hidden">
+            <div class="notif-icon">
+                <i id="notifIcon" class="fas fa-info-circle"></i>
+            </div>
+            <div class="notif-content">
+                <span id="notifMessage">Mensaje</span>
+            </div>
+            <div class="notif-close" onclick="hideNotification()">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loader">
+                <div class="loader-ring"></div>
+                <span>Procesando...</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
