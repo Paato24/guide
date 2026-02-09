@@ -1,0 +1,317 @@
+:root{
+  --bg0:#070a12;
+  --bg1:#0b1020;
+  --card:#0f1730cc;
+  --stroke:#ffffff14;
+  --text:#e8ecff;
+  --muted:#b6bfdc;
+  --accent:#ff8a00;
+  --accent2:#ffcf5a;
+  --good:#33d17a;
+  --bad:#ff4d5e;
+  --shadow: 0 18px 50px rgba(0,0,0,.55);
+  --radius: 18px;
+  --radius2: 12px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--text);
+  overflow:hidden;
+  background:
+    radial-gradient(1200px 600px at 65% 35%, rgba(255,138,0,.25), transparent 60%),
+    radial-gradient(1000px 700px at 30% 70%, rgba(0,140,255,.18), transparent 60%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+}
+
+.hidden{ display:none !important; }
+
+.wrap{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+}
+
+.shell{
+  width:min(1080px, 100%);
+  display:grid;
+  grid-template-columns: 1.2fr .85fr;
+  gap:18px;
+  align-items:stretch;
+}
+
+.panel{
+  border:1px solid var(--stroke);
+  background:linear-gradient(180deg, rgba(18,25,52,.88), rgba(10,14,28,.86));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+
+.panel::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(550px 250px at 20% 10%, rgba(255,138,0,.22), transparent 60%),
+    radial-gradient(650px 260px at 95% 60%, rgba(0,140,255,.16), transparent 60%);
+  pointer-events:none;
+}
+
+.left{
+  padding:24px 26px 22px;
+}
+
+.right{
+  padding:22px 22px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  position:relative;
+  z-index:1;
+}
+
+.logo{
+  width:56px; height:56px;
+  border-radius: 14px;
+  display:grid;
+  place-items:center;
+  background: linear-gradient(135deg, rgba(255,138,0,.22), rgba(0,140,255,.18));
+  border:1px solid rgba(255,255,255,.12);
+}
+.logo svg{ width:42px; height:42px; display:block; }
+
+.brand h1{
+  margin:0;
+  font-size: 22px;
+  letter-spacing:.2px;
+}
+.brand p{
+  margin:2px 0 0;
+  color:var(--muted);
+  font-size: 13px;
+}
+
+.hero{
+  margin-top:18px;
+  position:relative;
+  z-index:1;
+}
+.hero h2{
+  margin:0;
+  font-size: 26px;
+  line-height:1.2;
+}
+.hero .about{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+  white-space:pre-line;
+}
+
+.chips{
+  margin-top:16px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.chip{
+  padding:9px 12px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  font-size: 12.5px;
+  color: #dbe2ff;
+}
+.chip strong{
+  color: var(--accent2);
+  font-weight:700;
+}
+
+.grid{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+}
+.card{
+  border:1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius2);
+  background: rgba(255,255,255,.04);
+  padding:12px 12px;
+  position:relative;
+  z-index:1;
+}
+.card .k{
+  font-size:12px;
+  color: var(--muted);
+  margin:0 0 5px;
+}
+.card .v{
+  font-size:14px;
+  margin:0;
+}
+
+.formTitle{
+  font-size:14px;
+  color: var(--muted);
+  margin:0 0 6px;
+  position:relative;
+  z-index:1;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  position:relative;
+  z-index:1;
+}
+.tab{
+  flex:1;
+  padding:10px 10px;
+  border-radius: 12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: #dbe2ff;
+  font-weight:600;
+  font-size: 13px;
+  cursor:pointer;
+  transition: all .15s ease;
+}
+.tab.active{
+  background: linear-gradient(135deg, rgba(255,138,0,.20), rgba(0,140,255,.14));
+  border-color: rgba(255,138,0,.35);
+}
+
+form{
+  margin:0;
+  position:relative;
+  z-index:1;
+}
+
+.row{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:10px;
+}
+label{
+  font-size:12px;
+  color: var(--muted);
+}
+input, select{
+  width:100%;
+  border-radius: 12px;
+  padding:11px 12px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+  color: var(--text);
+  outline:none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+input:focus, select:focus{
+  border-color: rgba(255,138,0,.45);
+  box-shadow: 0 0 0 4px rgba(255,138,0,.12);
+}
+input::placeholder{ color: rgba(232,236,255,.45); }
+
+.hint{
+  font-size:11.5px;
+  color: rgba(182,191,220,.9);
+  margin-top:6px;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+.btn{
+  flex:1;
+  border:none;
+  border-radius: 14px;
+  padding:12px 12px;
+  font-weight:800;
+  letter-spacing:.3px;
+  cursor:pointer;
+  transition: transform .12s ease, filter .12s ease;
+}
+.btn:active{ transform: translateY(1px); }
+.btnPrimary{
+  background: linear-gradient(135deg, var(--accent), #ffb13b);
+  color:#110a00;
+}
+.btnGhost{
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+  border:1px solid rgba(255,255,255,.12);
+}
+.btn[disabled]{
+  filter: grayscale(1) opacity(.65);
+  cursor:not-allowed;
+}
+
+.status{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius: 12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height:1.35;
+  position:relative;
+  z-index:1;
+}
+.status.good{
+  border-color: rgba(51,209,122,.35);
+  background: rgba(51,209,122,.08);
+  color: rgba(232,236,255,.95);
+}
+.status.bad{
+  border-color: rgba(255,77,94,.35);
+  background: rgba(255,77,94,.08);
+  color: rgba(232,236,255,.95);
+}
+
+.foot{
+  margin-top:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  color: rgba(182,191,220,.9);
+  font-size: 11.5px;
+  position:relative;
+  z-index:1;
+}
+.kbd{
+  font-family: var(--mono);
+  font-size: 11px;
+  padding:4px 8px;
+  border-radius: 10px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: rgba(232,236,255,.9);
+}
+
+@media (max-width: 960px){
+  .shell{ grid-template-columns:1fr; }
+}
+

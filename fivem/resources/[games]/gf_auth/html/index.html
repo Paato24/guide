@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GamesFiveM - Autenticación</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="hidden">
+    <div class="wrap" id="wrap">
+      <div class="shell">
+        <section class="panel left">
+          <div class="brand">
+            <div class="logo" aria-hidden="true" id="logoBox"></div>
+            <div>
+              <h1 id="serverName">GamesFiveM</h1>
+              <p id="tagline">Servidor dedicado a minijuegos</p>
+            </div>
+          </div>
+
+          <div class="hero">
+            <h2>Minijuegos competitivos, diversión pura.</h2>
+            <p class="about" id="aboutText"></p>
+
+            <div class="chips">
+              <div class="chip"><strong>Sumo</strong> y arenas</div>
+              <div class="chip"><strong>Face to Face</strong> duelos</div>
+              <div class="chip"><strong>Carreras</strong> callejeras</div>
+              <div class="chip"><strong>Mega Rampas</strong> y locuras</div>
+              <div class="chip"><strong>Tienda</strong> cosmética</div>
+              <div class="chip"><strong>0 PayToWin</strong></div>
+            </div>
+
+            <div class="grid">
+              <div class="card">
+                <p class="k">Enfoque</p>
+                <p class="v">Partidas rápidas, rotación constante de modos y torneos.</p>
+              </div>
+              <div class="card">
+                <p class="k">Progresión</p>
+                <p class="v">Estéticas y mejoras visuales sin ventajas injustas.</p>
+              </div>
+              <div class="card">
+                <p class="k">Comunidad</p>
+                <p class="v">Staff activo, eventos y feedback continuo.</p>
+              </div>
+              <div class="card">
+                <p class="k">Rendimiento</p>
+                <p class="v">Optimizado para una experiencia fluida.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel right">
+          <p class="formTitle">Accede a tu cuenta para jugar.</p>
+
+          <div class="tabs">
+            <button class="tab active" id="tabLogin" type="button">Iniciar sesión</button>
+            <button class="tab" id="tabRegister" type="button">Registrarse</button>
+          </div>
+
+          <form id="loginForm" autocomplete="off">
+            <div class="row">
+              <label for="loginEmail">Correo</label>
+              <input id="loginEmail" placeholder="correo@ejemplo.com" inputmode="email" />
+            </div>
+            <div class="row">
+              <label for="loginPassword">Contraseña</label>
+              <input id="loginPassword" type="password" placeholder="••••••••" />
+            </div>
+            <div class="hint">Solo pedimos correo y contraseña para iniciar sesión.</div>
+
+            <div class="actions">
+              <button class="btn btnPrimary" id="btnLogin" type="submit">Entrar</button>
+              <button class="btn btnGhost" id="btnClose1" type="button">Cerrar</button>
+            </div>
+          </form>
+
+          <form id="registerForm" class="hidden" autocomplete="off">
+            <div class="row">
+              <label for="regEmail">Correo</label>
+              <input id="regEmail" placeholder="correo@ejemplo.com" inputmode="email" />
+            </div>
+            <div class="row">
+              <label for="regPassword">Contraseña</label>
+              <input id="regPassword" type="password" placeholder="Mínimo 6 caracteres" />
+            </div>
+            <div class="row">
+              <label for="regUsername">Nombre de usuario</label>
+              <input id="regUsername" placeholder="TuNick" />
+            </div>
+            <div class="row">
+              <label for="regNationality">Nacionalidad</label>
+              <input id="regNationality" placeholder="Ej. Chile, México, España..." />
+            </div>
+
+            <div class="actions">
+              <button class="btn btnPrimary" id="btnRegister" type="submit">Crear cuenta</button>
+              <button class="btn btnGhost" id="btnClose2" type="button">Cerrar</button>
+            </div>
+          </form>
+
+          <div class="status hidden" id="statusBox"></div>
+
+          <div class="actions">
+            <button class="btn btnPrimary" id="btnPlay" type="button" disabled>Jugar</button>
+            <button class="btn btnGhost" id="btnLogout" type="button" disabled>Salir</button>
+          </div>
+
+          <div class="foot">
+            <span>GamesFiveM · ESX Legacy</span>
+            <span class="kbd">ESC</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script>
+      const RESOURCE = (window.GetParentResourceName && GetParentResourceName()) || 'gf_auth';
+      const $ = (id) => document.getElementById(id);
+
+      const state = {
+        visible: false,
+        mode: 'login',
+        authed: false,
+        loading: false,
+        minPass: 6,
+        maxPass: 72,
+      };
+
+      function setVisible(v) {
+        state.visible = v;
+        document.body.classList.toggle('hidden', !v);
+      }
+
+      function setMode(mode) {
+        state.mode = mode;
+        $('tabLogin').classList.toggle('active', mode === 'login');
+        $('tabRegister').classList.toggle('active', mode === 'register');
+        $('loginForm').classList.toggle('hidden', mode !== 'login');
+        $('registerForm').classList.toggle('hidden', mode !== 'register');
+      }
+
+      function setStatus(kind, text) {
+        const box = $('statusBox');
+        if (!text) {
+          box.classList.add('hidden');
+          box.textContent = '';
+          box.classList.remove('good', 'bad');
+          return;
+        }
+        box.classList.remove('hidden');
+        box.classList.toggle('good', kind === 'good');
+        box.classList.toggle('bad', kind === 'bad');
+        box.textContent = text;
+      }
+
+      function setLoading(isLoading) {
+        state.loading = isLoading;
+        $('btnLogin').disabled = isLoading;
+        $('btnRegister').disabled = isLoading;
+      }
+
+      function setAuthed(ok) {
+        state.authed = !!ok;
+        $('btnPlay').disabled = !state.authed;
+        $('btnLogout').disabled = !state.authed;
+      }
+
+      function postNui(name, data) {
+        return fetch(`https://${RESOURCE}/${name}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+          body: JSON.stringify(data || {}),
+        }).then((r) => r.json().catch(() => ({})));
+      }
+
+      function isValidEmail(email) {
+        if (!email) return false;
+        return /^[\w.+-]+@[\w-]+\.\w\w+$/.test(String(email).trim().toLowerCase());
+      }
+
+      function boot(payload) {
+        const { serverName, tagline, about, minPasswordLength, maxPasswordLength } = payload || {};
+        if (serverName) $('serverName').textContent = serverName;
+        if (tagline) $('tagline').textContent = tagline;
+        $('aboutText').textContent = about || '';
+        if (minPasswordLength) state.minPass = minPasswordLength;
+        if (maxPasswordLength) state.maxPass = maxPasswordLength;
+
+        // inject logo svg
+        fetch('assets/logo.svg')
+          .then((r) => r.text())
+          .then((svg) => {
+            $('logoBox').innerHTML = svg;
+          })
+          .catch(() => {
+            $('logoBox').textContent = 'G5';
+          });
+      }
+
+      // Tabs
+      $('tabLogin').addEventListener('click', () => {
+        setStatus(null, null);
+        setMode('login');
+      });
+      $('tabRegister').addEventListener('click', () => {
+        setStatus(null, null);
+        setMode('register');
+      });
+
+      // Close buttons
+      $('btnClose1').addEventListener('click', () => postNui('close', {}));
+      $('btnClose2').addEventListener('click', () => postNui('close', {}));
+
+      // Login
+      $('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (state.loading) return;
+        const email = $('loginEmail').value;
+        const password = $('loginPassword').value;
+        if (!isValidEmail(email)) return setStatus('bad', 'Correo inválido.');
+        if (!password) return setStatus('bad', 'Contraseña inválida.');
+
+        setLoading(true);
+        setStatus(null, 'Verificando...');
+        await postNui('login', { email, password });
+        // resultado llega por message event
+      });
+
+      // Register
+      $('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (state.loading) return;
+        const email = $('regEmail').value;
+        const password = $('regPassword').value;
+        const username = $('regUsername').value;
+        const nationality = $('regNationality').value;
+
+        if (!isValidEmail(email)) return setStatus('bad', 'Correo inválido.');
+        if (!password || password.length < state.minPass || password.length > state.maxPass)
+          return setStatus('bad', `La contraseña debe tener entre ${state.minPass} y ${state.maxPass} caracteres.`);
+        if (!username || username.trim().length < 3) return setStatus('bad', 'Nombre de usuario inválido (mínimo 3).');
+        if (!nationality || nationality.trim().length < 2) return setStatus('bad', 'Nacionalidad inválida.');
+
+        setLoading(true);
+        setStatus(null, 'Creando cuenta...');
+        await postNui('register', { email, password, username, nationality });
+      });
+
+      // Play
+      $('btnPlay').addEventListener('click', async () => {
+        if (!state.authed) return;
+        setStatus(null, 'Preparando tu sesión...');
+        await postNui('play', {});
+      });
+
+      // Logout (solo UI local: re-habilita forms)
+      $('btnLogout').addEventListener('click', () => {
+        setAuthed(false);
+        setStatus(null, 'Has salido del panel. Puedes iniciar sesión de nuevo.');
+        setMode('login');
+      });
+
+      // ESC
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') postNui('close', {});
+      });
+
+      // Messages from client lua
+      window.addEventListener('message', (event) => {
+        const msg = event.data || {};
+        if (msg.type === 'setVisible') setVisible(!!msg.visible);
+        if (msg.type === 'boot') {
+          boot(msg.payload || {});
+          setVisible(true);
+          setMode('login');
+          setAuthed(false);
+          setLoading(false);
+          setStatus(null, null);
+        }
+        if (msg.type === 'notify') {
+          if (msg.data && msg.data.message) setStatus(msg.data.type === 'error' ? 'bad' : 'good', msg.data.message);
+        }
+        if (msg.type === 'authResult') {
+          setLoading(false);
+          const r = msg.result || {};
+          if (r.ok) {
+            setAuthed(true);
+            setStatus('good', r.message || 'Listo. Pulsa "Jugar".');
+          } else {
+            setAuthed(false);
+            setStatus('bad', r.message || 'Error.');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
