@@ -1,0 +1,22 @@
+Objetivo: evitar que esx_identity abra su UI antes de que el jugador pulse "Jugar" en gf_auth.
+
+Qué hacer (el check puede ir en server o client, según tu versión):
+
+1) Abre el archivo donde esx_identity muestra el formulario automáticamente (p.ej. client/main.lua o server/main.lua).
+2) Ubica el punto donde llama a "showRegisterIdentity" o donde reacciona a playerLoaded/identityCheck.
+3) Antes de abrir la UI, valida:
+
+   -- Si estás en server:
+   if GetResourceState('gf_auth') == 'started' and not exports['gf_auth']:CanOpenESX(source) then
+     return
+   end
+
+   -- Si estás en client (no siempre tienes exports server aquí):
+   -- En ese caso, haz que el server te dispare el evento SOLO después de "Jugar",
+   -- o mueve el check a server y evita TriggerClientEvent hasta que gf_auth lo permita.
+
+Resultado esperado:
+
+- Antes de "Jugar": esx_identity no se abre aunque el jugador no tenga identidad.
+- Después de "Jugar": el flujo normal de ESX puede abrir esx_identity cuando corresponda.
+

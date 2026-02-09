@@ -1,0 +1,21 @@
+Objetivo: evitar que esx_multicharacter abra su UI antes de que el jugador pulse "Jugar" en gf_auth.
+
+Qué hacer (server-side):
+
+1) Abre el archivo server principal de esx_multicharacter (por ejemplo: esx_multicharacter/server/main.lua).
+2) Localiza el handler que abre el selector de personajes automáticamente al entrar.
+   Normalmente es un evento tipo:
+   - AddEventHandler('esx:playerJoined', ...)
+   - o RegisterNetEvent('esx_multicharacter:SetupCharacters', ...)
+   - o el punto donde hace TriggerClientEvent para abrir el menú.
+3) Justo al inicio de ese handler, añade:
+
+   if GetResourceState('gf_auth') == 'started' and not exports['gf_auth']:CanOpenESX(source) then
+     return
+   end
+
+Resultado esperado:
+
+- Antes de "Jugar": no se abre nada de multicharacter.
+- Después de "Jugar": gf_auth hará `TriggerServerEvent('esx_multicharacter:SetupCharacters')` y el menú se abrirá normalmente.
+

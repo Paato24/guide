@@ -49,11 +49,15 @@ En el handler que se ejecuta al entrar y/o el que lanza el menú de personajes (
 
 - si `exports['gf_auth']:CanOpenESX(source)` es false, entonces return (no abrir nada)
 
+En este recurso tienes un paso a paso listo en `patches/ESX_MULTICHARACTER_GUARD.txt`.
+
 ### Parche sugerido para esx_identity (client o server)
 
 En el punto donde el recurso muestra el formulario de identidad automáticamente al cargar jugador:
 
 - si `exports['gf_auth']:CanOpenESX(source)` es false (server) o si el server no lo permite, no abras la UI
+
+En este recurso tienes un paso a paso listo en `patches/ESX_IDENTITY_GUARD.txt`.
 
 Nota: la ubicación exacta de estos checks depende de tu versión de ESX, pero la regla es siempre la misma: si no hay “Jugar”, no hay UI.
 
