@@ -99,9 +99,9 @@ CreateThread(function()
 end)
 
 RegisterNUICallback('close', function(_, cb)
-  setUi(false)
+  -- El server decide si se puede continuar o no.
+  -- Antes de "Jugar" no permitimos que el jugador salga del flujo.
   TriggerServerEvent('gf_auth:server:closeUi')
-  softLockPlayer(false)
   cb({ ok = true })
 end)
 

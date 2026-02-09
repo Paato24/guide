@@ -1,4 +1,5 @@
 local Players = {}
+local hardGate = Config.HardGateResources == true
 
 local function nowUtc()
   return os.date('!%Y-%m-%d %H:%M:%S')
@@ -111,8 +112,21 @@ end)
 RegisterNetEvent('gf_auth:server:closeUi', function()
   local src = source
   if not Players[src] then return end
-  -- No habilitamos ESX aquí: solo se habilita al pulsar "Jugar"
-  setBucket(src, false)
+  -- No se permite salir del flujo antes de "Jugar".
+  if Players[src].canOpenESX then
+    setBucket(src, false)
+    return
+  end
+
+  setBucket(src, true)
+  TriggerClientEvent('gf_auth:client:notify', src, { type = 'error', message = 'Debes autenticarte y pulsar "Jugar" para continuar.' })
+  TriggerClientEvent('gf_auth:client:open', src, {
+    serverName = Config.ServerName,
+    tagline = Config.Tagline,
+    about = Config.AboutParagraph,
+    minPasswordLength = Config.MinPasswordLength,
+    maxPasswordLength = Config.MaxPasswordLength,
+  })
 end)
 
 local function createTableIfMissing()
@@ -140,6 +154,32 @@ CreateThread(function()
   math.randomseed(os.time() + GetGameTimer())
   createTableIfMissing()
   print(('[gf_auth] listo. Tabla `%s` verificada.'):format(Config.TableName))
+
+  if hardGate then
+    local mc = Config.MulticharacterResource
+    local id = Config.IdentityResource
+    if GetResourceState(mc) == 'started' then StopResource(mc) end
+    if GetResourceState(id) == 'started' then StopResource(id) end
+  end
+end)
+
+AddEventHandler('onResourceStart', function(resName)
+  if not hardGate then return end
+  if resName ~= Config.MulticharacterResource and resName ~= Config.IdentityResource then return end
+
+  -- Si nadie ha pulsado "Jugar", mantenemos estos recursos apagados
+  for _, st in pairs(Players) do
+    if st and st.canOpenESX then
+      return
+    end
+  end
+
+  CreateThread(function()
+    Wait(200)
+    if GetResourceState(resName) == 'started' then
+      StopResource(resName)
+    end
+  end)
 end)
 
 RegisterNetEvent('gf_auth:server:register', function(payload)
@@ -277,6 +317,27 @@ local function guessHasCharacters(src, license)
   return result == true
 end
 
+local function ensureResourceStarted(resName, timeoutMs)
+  if not resName or resName == '' then return false end
+  if GetResourceState(resName) == 'started' then return true end
+
+  if hardGate then
+    StartResource(resName)
+  end
+
+  local waited = 0
+  local step = 200
+  local limit = timeoutMs or 10000
+  while waited < limit do
+    if GetResourceState(resName) == 'started' then
+      return true
+    end
+    Wait(step)
+    waited = waited + step
+  end
+  return GetResourceState(resName) == 'started'
+end
+
 RegisterNetEvent('gf_auth:server:play', function()
   local src = source
   ensureState(src)
@@ -292,10 +353,19 @@ RegisterNetEvent('gf_auth:server:play', function()
   local license = getLicense(src)
   local hasCharacters = license and guessHasCharacters(src, license) or true
 
-  TriggerClientEvent('gf_auth:client:beginESXFlow', src, {
-    hasCharacters = hasCharacters,
-    multicharacter = Config.MulticharacterResource,
-    identity = Config.IdentityResource,
-  })
+  local mc = Config.MulticharacterResource
+  local id = Config.IdentityResource
+
+  if hasCharacters then
+    if not ensureResourceStarted(mc, Config.HardGateStartTimeoutMs) then
+      return TriggerClientEvent('gf_auth:client:notify', src, { type = 'error', message = ('No se pudo iniciar %s.'):format(mc) })
+    end
+  else
+    if not ensureResourceStarted(id, Config.HardGateStartTimeoutMs) then
+      return TriggerClientEvent('gf_auth:client:notify', src, { type = 'error', message = ('No se pudo iniciar %s.'):format(id) })
+    end
+  end
+
+  TriggerClientEvent('gf_auth:client:beginESXFlow', src, { hasCharacters = hasCharacters, multicharacter = mc, identity = id })
 end)
 

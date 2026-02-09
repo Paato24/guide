@@ -30,3 +30,10 @@ Config.TableName = 'gf_accounts'
 Config.MulticharacterResource = 'esx_multicharacter'
 Config.IdentityResource = 'esx_identity'
 
+-- HARD GATE (opcional, recomendado)
+-- Si está en true, `gf_auth` intentará mantener apagados `esx_multicharacter`/`esx_identity`
+-- hasta que el jugador pulse "Jugar". Esto ayuda a garantizar que no se abran antes.
+-- Requiere que el recurso exista en tu servidor (aunque no esté `ensure`d).
+Config.HardGateResources = true
+Config.HardGateStartTimeoutMs = 10000
+
