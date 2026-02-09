@@ -1,0 +1,38 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ring" x1="0" y1="0" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8A00" />
+      <stop offset="1" stop-color="#FFC837" />
+    </linearGradient>
+    <linearGradient id="core" x1="40" y1="40" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#141722" />
+      <stop offset="1" stop-color="#0B0E18" />
+    </linearGradient>
+  </defs>
+  <circle cx="120" cy="120" r="110" fill="url(#ring)" />
+  <circle cx="120" cy="120" r="92" fill="url(#core)" />
+  <path
+    d="M80 120c0-22.092 17.908-40 40-40s40 17.908 40 40-17.908 40-40 40c-10.666 0-20.36-4.182-27.484-11.012"
+    stroke="#FFC837"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M120 94c9.941 0 18 8.059 18 18s-8.059 18-18 18"
+    stroke="#FF8A00"
+    stroke-width="10"
+    stroke-linecap="round"
+  />
+  <text
+    x="120"
+    y="205"
+    text-anchor="middle"
+    font-family="Inter, Arial, sans-serif"
+    font-size="22"
+    font-weight="700"
+    fill="#F4F6FF"
+  >
+    GamesFiveM
+  </text>
+</svg>

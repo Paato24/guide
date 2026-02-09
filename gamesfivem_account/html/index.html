@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GamesFiveM - Cuenta</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app hidden">
+      <div class="card">
+        <div class="info">
+          <div class="logo-wrap">
+            <img src="img/logo.svg" alt="GamesFiveM" class="logo" />
+          </div>
+          <h1>GamesFiveM</h1>
+          <p class="subtitle">Servidor dedicado a los minijuegos</p>
+          <div class="about">
+            <p>
+              Bienvenido a GamesFiveM. Aqui encuentras modos competitivos,
+              eventos rapidos y un ambiente enfocado en la diversion.
+            </p>
+          </div>
+          <ul class="features">
+            <li>Sumo</li>
+            <li>Face to Face</li>
+            <li>Carreras Callejeras</li>
+            <li>Mega Rampas</li>
+            <li>Carreras y mas</li>
+          </ul>
+          <div class="badge">
+            Tiendas con mejoras esteticas, nada de pay to win
+          </div>
+          <div class="footer-note">
+            Crea tu cuenta, inicia sesion y pulsa Jugar para continuar.
+          </div>
+        </div>
+
+        <div class="auth">
+          <div class="tabs">
+            <button class="tab active" data-tab="login">Iniciar sesion</button>
+            <button class="tab" data-tab="register">Registrarse</button>
+          </div>
+
+          <div id="panel-login" class="panel active">
+            <h2>Iniciar sesion</h2>
+            <form id="login-form">
+              <label>
+                Correo
+                <input type="email" name="email" placeholder="tu@email.com" required />
+              </label>
+              <label>
+                Contrasena
+                <input type="password" name="password" placeholder="********" required />
+              </label>
+              <button type="submit" class="primary">
+                <span>Entrar</span>
+                <span class="spinner"></span>
+              </button>
+            </form>
+          </div>
+
+          <div id="panel-register" class="panel">
+            <h2>Registrar cuenta</h2>
+            <form id="register-form">
+              <label>
+                Correo
+                <input type="email" name="email" placeholder="tu@email.com" required />
+              </label>
+              <label>
+                Contrasena
+                <input type="password" name="password" placeholder="Minimo 6 caracteres" required />
+              </label>
+              <label>
+                Nombre de usuario
+                <input type="text" name="username" placeholder="GamesFiveM" required />
+              </label>
+              <label>
+                Nacionalidad
+                <input type="text" name="nationality" placeholder="Tu pais" required />
+              </label>
+              <button type="submit" class="primary">
+                <span>Crear cuenta</span>
+                <span class="spinner"></span>
+              </button>
+            </form>
+          </div>
+
+          <div id="panel-play" class="panel">
+            <h2>Listo para jugar</h2>
+            <p class="success-text">
+              Autenticacion correcta. Ahora puedes entrar al servidor.
+            </p>
+            <button id="play-button" class="primary">
+              <span>Jugar</span>
+              <span class="spinner"></span>
+            </button>
+            <div class="account-info">
+              <div><span>Cuenta:</span> <strong id="account-email">-</strong></div>
+              <div><span>Usuario:</span> <strong id="account-username">-</strong></div>
+            </div>
+          </div>
+
+          <div id="message" class="message hidden"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
