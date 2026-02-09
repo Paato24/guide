@@ -1,0 +1,89 @@
+╔═══════════════════════════════════════════════════════════════╗
+║         🎮 GAMESFIVEM AUTH - INICIO RÁPIDO 🎮               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+📦 INSTALACIÓN EN 5 PASOS:
+
+1️⃣  COPIAR RECURSO
+   └─ Copia gamesfivem_auth/ a tu carpeta resources/[esx]/
+
+2️⃣  INSTALAR BASE DE DATOS
+   └─ Ejecuta sql/install.sql en tu base de datos MySQL
+
+3️⃣  AGREGAR LOGO
+   └─ Copia tu logo a: html/logo.png (512x512px, PNG)
+
+4️⃣  CONFIGURAR SEGURIDAD
+   └─ Edita server/server.lua línea 6:
+      PasswordSalt = "TU_SALT_SECRETO_AQUI"
+
+5️⃣  AÑADIR A server.cfg
+   └─ Añade antes de esx_multicharacter:
+      ensure gamesfivem_auth
+
+╔═══════════════════════════════════════════════════════════════╗
+║                     ⚡ INICIO RÁPIDO ⚡                        ║
+╚═══════════════════════════════════════════════════════════════╝
+
+✅ Reinicia tu servidor FiveM
+✅ Conéctate y verás la pantalla de autenticación
+✅ Regístrate con un email de prueba
+✅ ¡Listo para usar!
+
+╔═══════════════════════════════════════════════════════════════╗
+║                  📚 DOCUMENTACIÓN COMPLETA 📚                 ║
+╚═══════════════════════════════════════════════════════════════╝
+
+📖 README.md         - Documentación principal
+🚀 INSTALL.md        - Guía de instalación detallada
+✨ FEATURES.md       - Todas las características
+💡 EXAMPLES.md       - Ejemplos y personalizaciones
+📋 CHANGELOG.md      - Historial de versiones
+📊 PROJECT_SUMMARY.md - Resumen del proyecto
+
+╔═══════════════════════════════════════════════════════════════╗
+║                   🆘 SOLUCIÓN RÁPIDA 🆘                       ║
+╚═══════════════════════════════════════════════════════════════╝
+
+❌ UI no aparece?
+   └─ Ejecuta en cliente: /auth
+
+❌ Error de BD?
+   └─ Verifica: ensure oxmysql
+
+❌ No redirige a multicharacter?
+   └─ Verifica orden en server.cfg:
+      1. gamesfivem_auth
+      2. esx_multicharacter
+      3. esx_identity
+
+╔═══════════════════════════════════════════════════════════════╗
+║                    🎨 PERSONALIZACIÓN 🎨                      ║
+╚═══════════════════════════════════════════════════════════════╝
+
+🎨 Cambiar colores:
+   └─ Edita html/style.css líneas 11-15 (:root)
+
+📝 Cambiar textos:
+   └─ Edita html/index.html
+
+⚙️ Cambiar requisitos:
+   └─ Edita server/server.lua
+
+╔═══════════════════════════════════════════════════════════════╗
+║                      ℹ️ INFORMACIÓN ℹ️                        ║
+╚═══════════════════════════════════════════════════════════════╝
+
+📦 Versión: 1.0.0
+👨‍💻 Para: GamesFiveM
+🔧 Compatible con: ESX Legacy
+📅 Fecha: Febrero 2024
+⭐ Calidad: Profesional
+
+╔═══════════════════════════════════════════════════════════════╗
+║            🎉 ¡LISTO PARA PRODUCCIÓN! 🎉                     ║
+╚═══════════════════════════════════════════════════════════════╝
+
+¡Disfruta tu nuevo sistema de autenticación profesional!
+
+🎮 GamesFiveM - El mejor servidor de minijuegos 🎮
